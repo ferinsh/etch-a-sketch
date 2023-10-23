@@ -1,0 +1,16 @@
+
+  
+#container {
+display: flex;
+flex-wrap: wrap;
+height: 672px;
+width: 672px;
+}
+
+.grid-item {
+height: 40px;
+width: 40px;
+border: 1px solid black;
+
+}
+
