@@ -1,26 +1,47 @@
+const gridContainer = document.getElementById('grid-container');
+const resetButton = document.getElementById('reset-button');
 
-const container = document.getElementById("container");
+// Function to create a new grid
+function createGrid(size) {
+    gridContainer.innerHTML = '';
+    gridContainer.style.setProperty('--grid-size', size);
+    for (let i = 0; i < size * size; i++) {
+        const gridItem = document.createElement('div');
+        gridItem.classList.add('grid-item');
+        gridContainer.appendChild(gridItem);
+    }
+}
 
-function makeRows(rows, cols) {
+
+//function to reset and change grid size - USED IN resetButton
+function resetButtonFunc(){
+  const newSize = prompt("Enter the number of squares per side for the new grid: ");
+  do{
+    newSize = prompt('Enter the number of squares per side for the new grid (up to 100):');
+    newSize = parseInt(newSize);
+  }while(isNaN(newSize) || newSize <= 0 || newSize > 100)
   
-  for (c = 0; c < (rows * cols); c++) {
-    let cell = document.createElement("div");
-    
-    container.appendChild(cell).className = "grid-item";
-  };
-};
+  createGrid(newSize)
+}
 
-makeRows(16, 16);
 
-const cell = document.querySelectorAll(".grid-item")
+// Initial grid creation
+createGrid(16);
 
-cell.forEach((div) => {
-    div.addEventListener('mouseover', () => {
-        console.log("OVER")
-        div.setAttribute("style", "background: red;")
-    })
-    div.addEventListener('mouseout', () => {
-        console.log("OUT")
-    })
-})
+// Handle button click to change grid size
+resetButton.addEventListener('click', () => {
+    resetButtonFunc();
+});
 
+// Add hover effect
+gridContainer.addEventListener('mouseover', (e) => {
+    if (e.target.classList.contains('grid-item')) {
+        e.target.style.backgroundColor = 'red';
+    }
+});
+
+gridContainer.addEventListener('mouseout', (e) => {
+    if (e.target.classList.contains('grid-item')) {
+        e.target.style.backgroundColor = '';
+    }
+});

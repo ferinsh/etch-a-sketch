@@ -1,16 +1,30 @@
+body {
+    display: flex;
+    flex-direction: column;
 
-  
-#container {
-display: flex;
-flex-wrap: wrap;
-height: 672px;
-width: 672px;
+    align-items: center;
+    text-align: center;
+    gap: 10px;
+}
+
+#grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 480px;
+    border: 1px solid red;
 }
 
 .grid-item {
-height: 40px;
-width: 40px;
-border: 1px solid black;
-
+    width: calc(480px / var(--grid-size));
+    padding-bottom: calc(480px / var(--grid-size));
+    border: 1px solid #000;
+    box-sizing: border-box;
+    transition: background-color 0.2s;
 }
 
+#controls {
+    display: flex;
+    justify-content: space-around;
+    width: 480px;
+    margin-top: 20px;
+}
