@@ -1,5 +1,10 @@
 const gridContainer = document.getElementById('grid-container');
 const resetButton = document.getElementById('reset-button');
+const colorButton = document.getElementById('change-color');
+const titleName = document.getElementById('title')
+var hoverColor = "red";
+var random_MAX = 255
+var random_MIN = 0
 
 // Function to create a new grid
 function createGrid(size) {
@@ -10,6 +15,12 @@ function createGrid(size) {
         gridItem.classList.add('grid-item');
         gridContainer.appendChild(gridItem);
     }
+}
+
+//function to change title color
+function titleColorChange(randomColor){
+    const titleRandom = 'color: ' + randomColor + ';'
+    titleName.setAttribute('style', titleRandom)
 }
 
 
@@ -25,6 +36,10 @@ function resetButtonFunc(){
 }
 
 
+//change title color
+titleColorChange('cyan')
+
+
 // Initial grid creation
 createGrid(16);
 
@@ -33,11 +48,33 @@ resetButton.addEventListener('click', () => {
     resetButtonFunc();
 });
 
+// Handle button click to change hover color
+colorButton.addEventListener('click', () => {
+    
+
+    do{
+        random_MIN = prompt('Enter the min range : ');
+        random_MIN = parseInt(random_MIN);
+        random_MAX = prompt('Enter the max range (up to 255): ');
+        random_MAX = parseInt(random_MAX);
+      }while(isNaN(random_MAX) || random_MAX < 0 || random_MAX > 255 || random_MIN > random_MAX)
+    
+
+});
+
 // Add hover effect
 gridContainer.addEventListener('mouseover', (e) => {
     if (e.target.classList.contains('grid-item')) {
-        e.target.style.backgroundColor = 'red';
+        
+        const randomRed =  Math.floor(Math.random() * random_MAX) + random_MIN;
+        const randomGreen =  Math.floor(Math.random() * random_MAX) + random_MIN;
+        const randomBlue =  Math.floor(Math.random() * random_MAX) + random_MIN;
+        hoverColor = 'rgb(' + randomRed + ',' + randomGreen + ',' + randomBlue + ')'
+        
+
+        e.target.style.backgroundColor = hoverColor
     }
+    titleColorChange(hoverColor)
 });
 
 gridContainer.addEventListener('mouseout', (e) => {
